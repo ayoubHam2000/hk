@@ -1,4 +1,5 @@
 const io = require('socket.io-client')
+const utils = require('./utils')
 const perlinNoise3d = require('perlin-noise-3d')
 
 const noise = new perlinNoise3d();
@@ -8,11 +9,10 @@ const ID = 'GCYgIJqzbJnS'
 //CfA6UYkoMI1R
 //GCYgIJqzbJnS
 
-
 socket.on("connect", ()=>{
 	console.log("connected")
 	//socket.emit('matchs', `${ID}`)
-	socket.emit('join', `{match:${MATCH_ID}, id: ${ID}}`)
+	socket.emit('join', `{id: ${ID}, match:${MATCH_ID}}`)
 })
 
 let offset = 0;
@@ -27,26 +27,18 @@ socket.on('input', (data)=>{
 	console.log(data)
 
 	//data
-	let fuels = data.fuels;
+	/*let fuels = data.fuels;
 	let pos = data.ship;
-	let angle = 0;
+	let angle = getAngle(pos, fuels);
 	
-	if (length(fuels) > 0)
-	{
-		fuel = fuels[0]
-		let angle = Math.atan2(fuel.y - pos.y, fuel.y - pos.x)
-		if (angle <= 0)
-			angle = -angle
-		else
-			angle = 360 - angle
-	}
 	output = {
-		match : '',
-		id : '',
+		match : `${MATCH_ID}`,
+		id : `${ID}`,
 		I : 1,
 		angle : angle
 	}
-	socket.on('output', JSON.stringify(output))
+	console.log(output)
+	socket.on('output', JSON.stringify(output))*/
 })
 
 socket.on('msg', (data) => {
