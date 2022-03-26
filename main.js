@@ -3,16 +3,24 @@ const perlinNoise3d = require('perlin-noise-3d')
 
 const noise = new perlinNoise3d();
 const socket = io.connect("https://bpc-server.herokuapp.com/")
-const MATCH_ID = 'CfA6UYkoMI1R'
+const MATCH_ID = '8Q70VlJ6Nj59'
 const ID = 'GCYgIJqzbJnS'
+//CfA6UYkoMI1R
+//GCYgIJqzbJnS
+
 
 socket.on("connect", ()=>{
 	console.log("connected")
+	//socket.emit('matchs', `${ID}`)
 	socket.emit('join', `{match:${MATCH_ID}, id: ${ID}}`)
 })
 
 let offset = 0;
 let dir = 1;
+
+socket.on('matchs', (data) => {
+	console.log(data)
+})
 
 socket.on('input', (data)=>{
 	data = JSON.parse(data)
